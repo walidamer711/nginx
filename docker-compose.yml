@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  nginx:
+    restart: always
+    build: .
+    ports:
+      - 1337:80
+    networks:
+      - nginx_net
+      - projectmgmt_default
+      - storemgmt_default
+    volumes:
+      - DataVolume1:/code/staticfiles1
+      - DataVolume2:/code/staticfiles2
+    external_links:
+      - projectmgmt_web_1:site1
+      - storemgmt_web_1:site2
+
+networks:
+  nginx_net:
+  projectmgmt_default:
+    external: true
+  storemgmt_default:
+    external: true
+
+volumes:
+  DataVolume1:
+    external: true
+  DataVolume2:
+    external: true
